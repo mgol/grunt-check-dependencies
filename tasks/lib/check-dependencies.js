@@ -39,7 +39,16 @@ module.exports = function (grunt) {
             // Quick and dirty check - make sure we're dealing with semver, not
             // a URL or a shortcut to the GitHub repo.
             if (/\//.test(versionString)) {
-                return;
+                // Check if this giturl uses version tags
+                var idx = versionString.indexOf('#');
+                if(idx != -1) {
+                    versionString = versionString.substring(idx+1);
+                    if(!semver.valid(versionString)) {
+                        return;
+                    }
+                } else {
+                    return;
+                }
             }
 
             var version = grunt.file.readJSON(path.join(packageDir, 'node_modules', name, 'package.json')).version;
