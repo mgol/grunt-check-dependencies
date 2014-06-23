@@ -26,7 +26,7 @@
         }
     ],
     "dependencies": {
-        "check-dependencies": "~0.5.3",
+        "check-dependencies": "~0.6.0",
         "lodash.clonedeep": "2.4.1"
     },
     "devDependencies": {

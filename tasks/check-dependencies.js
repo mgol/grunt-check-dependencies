@@ -28,7 +28,14 @@ module.exports = function (grunt) {
             options.verbose = true;
 
             checkDependencies(options, function (output) {
-                done(output.status === 0);
+                // The checkDependencies function succeeds if dependencies were mismatched
+                // but `npm install` ended fine; however, in case of mismatch we might have
+                // obsolete Grunt tasks loaded so it's better to fail this time and require
+                // a re-run.
+                if (output.status === 0 && !output.depsWereOk) {
+                    grunt.log.error('Dependencies have been updated. Please re-run your Grunt task.');
+                }
+                done(output.status === 0 && output.depsWereOk);
             });
         }
     );

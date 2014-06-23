@@ -38,9 +38,7 @@ describe('Task: checkDependencies', function () {
                 function (error) {
                     assert.equal(error, null);
                     exec('grunt checkDependencies:notOkCopyInstall', function (error) {
-                        // The first install is supposed to not fail because it's instructed to do
-                        // npm install.
-                        assert.equal(error, null);
+                        assert.notEqual(error, null);
                         exec('grunt checkDependencies:notOkCopy', function (error) {
                             // The second one would fail if there are mismatched packages since it's not
                             // invoked with `install: true`.
