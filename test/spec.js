@@ -1,55 +1,56 @@
 'use strict';
 
-var grunt = require('grunt'),
-    expect = require('expect.js'),
-    checkDependencies = require('../tasks/lib/check-dependencies')(grunt);
+var fs = require('fs-extra'),
+    assert = require('assert'),
+    semver = require('semver'),
+    exec = require('child_process').exec;
 
 describe('Task: checkDependencies', function () {
-    var output = {error: [], writeln: []},
-        hooker = grunt.util.hooker;
-
-    function hijackGruntLog(method) {
-        hooker.hook(grunt.log, method, {
-            // This gets executed before the original process.stdout.write.
-            pre: function (result) {
-                // Concatenate uncolored result onto actual.
-                output[method].push(grunt.log.uncolor(result));
-                // Prevent the original process.stdout.write from executing.
-                return hooker.preempt();
-            },
-        });
-    }
-
-    beforeEach(function () {
-        hijackGruntLog('error');
-        hijackGruntLog('writeln');
-    });
-
-    afterEach(function () {
-        output.error = [];
-        output.writeln = [];
-        // Restore grunt.log.error to its original value.
-        hooker.unhook(grunt.log, 'error');
-        hooker.unhook(grunt.log, 'writeln');
-    });
-
     it('should not print anything for valid package setup', function (done) {
-        checkDependencies(grunt.config(['checkDependencies', 'ok', 'options']), function (success) {
-            expect(success).to.be(true);
-            expect(output.error).to.eql([]);
+        exec('grunt checkDependencies:ok', function (error) {
+            assert.equal(error, null);
             done();
         });
     });
 
     it('should error on invalid package setup', function (done) {
-        checkDependencies(grunt.config(['checkDependencies', 'notOk', 'options']), function (success) {
-            expect(success).to.be(false);
-            expect(output.error).to.eql([
-                'a: installed: 1.2.4, expected: 1.2.3',
-                'b: installed: 0.9.9, expected: >=1.0.0',
-                'c: not installed!',
-            ]);
+        exec('grunt checkDependencies:notOk', function (error) {
+            assert.notEqual(error, null);
             done();
+        });
+    });
+
+    it('should install missing packages when `install` is set to true', function (done) {
+        var versionRange = require('./not-ok-install/package.json').dependencies.minimatch,
+            version = JSON.parse(fs.readFileSync(__dirname +
+                '/not-ok-install/node_modules/minimatch/package.json')).version;
+
+        assert.equal(semver.satisfies(version, versionRange),
+            false, 'Expected version ' + version + ' not to match ' + versionRange);
+
+        this.timeout(30000);
+
+        fs.remove(__dirname + '/not-ok-install-copy', function (error) {
+            assert.equal(error, null);
+            fs.copy(__dirname + '/not-ok-install', __dirname + '/not-ok-install-copy',
+                function (error) {
+                    assert.equal(error, null);
+                    exec('grunt checkDependencies:notOkCopyInstall', function (error) {
+                        // The first install is supposed to not fail because it's instructed to do
+                        // npm install.
+                        assert.equal(error, null);
+                        exec('grunt checkDependencies:notOkCopy', function (error) {
+                            // The second one would fail if there are mismatched packages since it's not
+                            // invoked with `install: true`.
+                            assert.equal(error, null);
+                            version = JSON.parse(fs.readFileSync(__dirname +
+                                '/not-ok-install-copy/node_modules/minimatch/package.json')).version;
+                            assert(semver.satisfies(version, versionRange),
+                                'Expected version ' + version + ' to match ' + versionRange);
+                            done();
+                        });
+                    });
+                });
         });
     });
 });

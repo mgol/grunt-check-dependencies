@@ -15,7 +15,7 @@ module.exports = function (grunt) {
         eslint: {
             all: {
                 src: [
-                    'Gruntfile.js',
+                    '*.js',
                     'tasks',
                     'test',
                 ],
@@ -37,21 +37,25 @@ module.exports = function (grunt) {
 
         // Configuration to be run (and tested).
         checkDependencies: {
-            thisPackage: {
-                options: {
-                    npmInstall: true,
-                },
-            },
             ok: {
                 options: {
-                    packageDir: 'test/ok/',
-                    scopeList: ['peerDependencies', 'dependencies', 'devDependencies'],
+                    packageDir: './test/ok/',
                 },
             },
             notOk: {
                 options: {
-                    packageDir: 'test/not-ok/',
-                    scopeList: ['peerDependencies', 'dependencies', 'devDependencies'],
+                    packageDir: './test/not-ok/',
+                },
+            },
+            notOkCopyInstall: {
+                options: {
+                    packageDir: './test/not-ok-install-copy/',
+                    install: true,
+                },
+            },
+            notOkCopy: {
+                options: {
+                    packageDir: './test/not-ok-install-copy/',
                 },
             },
         },
