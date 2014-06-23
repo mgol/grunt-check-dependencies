@@ -61,6 +61,9 @@ The `checkDependencies` task accepts a couple of options:
     // If true, on error, instead of failing the task, `npm install` will be invoked for the user.
     // `false` by default.
     install: boolean,
+
+    // If true, logs non-error messages as well.
+    verbose: boolean,
 }
 ```
 
