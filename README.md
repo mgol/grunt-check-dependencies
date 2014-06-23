@@ -27,7 +27,7 @@ grunt.loadNpmTasks('grunt-check-dependencies');
 The `checkDependencies` task checks if the package has all necessary dependencies installed in right versions.
 If that's not the case, the task fails and advises to run `npm install`.
 
-If in case of a missing package you want to invoke the `npm install` command automatically, set the `npmInstall`
+If in case of a missing package you want to invoke the `npm install` command automatically, set the `install`
 option to `true`.
 
 In your project's Gruntfile, add a section named `checkDependencies` to the data object passed into `grunt.initConfig()`.
@@ -60,7 +60,7 @@ The `checkDependencies` task accepts a couple of options:
 
     // If true, on error, instead of failing the task, `npm install` will be invoked for the user.
     // `false` by default.
-    npmInstall: boolean,
+    install: boolean,
 }
 ```
 
@@ -81,7 +81,7 @@ If you want to automatically install missing packages, here's what you want:
     checkDependencies: {
         this: {
             options: {
-                npmInstall: true,
+                install: true,
             },
         },
     },
