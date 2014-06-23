@@ -8,7 +8,7 @@
 
 'use strict';
 
-var _ = require('lodash'),
+var cloneDeep = require('lodash.clonedeep'),
     checkDependencies = require('check-dependencies');
 
 module.exports = function (grunt) {
@@ -16,7 +16,7 @@ module.exports = function (grunt) {
             'Checks if currently installed npm dependencies are installed in the exact same versions ' +
             'that are specified in package.json',
         function () {
-            var options = _.cloneDeep(this.options()),
+            var options = cloneDeep(this.options()),
                 done = this.async();
 
             if (options.verbose) {
