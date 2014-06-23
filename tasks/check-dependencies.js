@@ -22,7 +22,7 @@ module.exports = function (grunt) {
             if (options.verbose) {
                 options.log = grunt.log.writeln;
             } else {
-                options.log = _.noop;
+                options.log = function () {};
             }
             options.error = grunt.log.error;
             options.verbose = true;
