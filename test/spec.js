@@ -7,6 +7,7 @@ var fs = require('fs-extra'),
 
 describe('Task: checkDependencies', function () {
     it('should not print anything for valid package setup', function (done) {
+        this.timeout(10000);
         exec('grunt checkDependencies:ok', function (error) {
             assert.equal(error, null);
             done();
@@ -14,6 +15,7 @@ describe('Task: checkDependencies', function () {
     });
 
     it('should error on invalid package setup', function (done) {
+        this.timeout(10000);
         exec('grunt checkDependencies:notOk', function (error) {
             assert.notEqual(error, null);
             done();
@@ -21,14 +23,14 @@ describe('Task: checkDependencies', function () {
     });
 
     it('should install missing packages when `install` is set to true', function (done) {
+        this.timeout(30000);
+
         var versionRange = require('./not-ok-install/package.json').dependencies.minimatch,
             version = JSON.parse(fs.readFileSync(__dirname +
                 '/not-ok-install/node_modules/minimatch/package.json')).version;
 
         assert.equal(semver.satisfies(version, versionRange),
             false, 'Expected version ' + version + ' not to match ' + versionRange);
-
-        this.timeout(30000);
 
         fs.remove(__dirname + '/not-ok-install-copy', function (error) {
             assert.equal(error, null);
