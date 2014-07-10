@@ -1,0 +1,9 @@
+/.travis.yml
+/appveyor.yml
+/Gruntfile.js
+
+/test
+
+.eslintignore
+.eslintrc
+.jscsrc
