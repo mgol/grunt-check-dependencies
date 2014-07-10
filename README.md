@@ -51,21 +51,26 @@ The `checkDependencies` task accepts a couple of options:
 
 ```js
 {
+    // 'npm' or 'bower', depending on what we want to test.
+    packageManager: string,
+
     // Path to a directory containing the package to test. By default the current app is tested.
     packageDir: string,
-
-    // Tells the task which sections of the package.json file should be checked.
-    // Default is `['peerDependencies', 'dependencies', 'devDependencies']`.
-    scopeList: array,
 
     // If true, on error, instead of failing the task, `npm install` will be invoked for the user.
     // `false` by default.
     install: boolean,
 
+    // Tells the task which sections of the package.json file should be checked.
+    // Default is `['peerDependencies', 'dependencies', 'devDependencies']`.
+    scopeList: array,
+
     // If true, logs non-error messages as well.
     verbose: boolean,
 }
 ```
+
+For the full list, see [the usage section](https://github.com/mzgol/check-dependencies#usage) of the README of the [check-dependencies](https://www.npmjs.org/package/check-dependencies) package.
 
 ### Usage Examples
 
