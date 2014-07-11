@@ -62,7 +62,7 @@ The `checkDependencies` task accepts a couple of options:
     install: boolean,
 
     // Tells the task which sections of the package.json file should be checked.
-    // Default is `['peerDependencies', 'dependencies', 'devDependencies']`.
+    // Default is `['dependencies', 'devDependencies']`.
     scopeList: array,
 
     // If true, logs non-error messages as well.
