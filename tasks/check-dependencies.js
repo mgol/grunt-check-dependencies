@@ -25,6 +25,10 @@ module.exports = function (grunt) {
                 options.log = function () {};
             }
             options.error = grunt.log.error;
+
+            // Our verbose mode represents check-dependencies verbose mode but even in non-verbose
+            // mode we want to have error messages logged so from check-dependencies perspective
+            // we're always verbose.
             options.verbose = true;
 
             checkDependencies(options, function (output) {
