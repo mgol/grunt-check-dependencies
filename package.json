@@ -25,6 +25,9 @@
             "type": "MIT"
         }
     ],
+    "files": [
+        "tasks"
+    ],
     "dependencies": {
         "check-dependencies": "^0.7.1",
         "lodash.clonedeep": "^2.4.1"
