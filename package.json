@@ -1,6 +1,6 @@
 {
     "name": "grunt-check-dependencies",
-    "version": "0.5.1-pre",
+    "version": "0.6.0-pre",
     "description": "Checks if currently installed npm dependencies are installed in the exact same versions that are specified in package.json.",
     "homepage": "https://github.com/mzgol/grunt-check-dependencies",
     "author": {
@@ -26,7 +26,7 @@
         }
     ],
     "dependencies": {
-        "check-dependencies": "^0.6.0",
+        "check-dependencies": "^0.7.0",
         "lodash.clonedeep": "^2.4.1"
     },
     "devDependencies": {
