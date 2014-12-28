@@ -14,7 +14,6 @@
         "modules",
         "dependencies"
     ],
-    "main": "Gruntfile.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/mzgol/grunt-check-dependencies.git"
