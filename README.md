@@ -57,6 +57,10 @@ The `checkDependencies` task accepts a couple of options:
     // Path to a directory containing the package to test. By default the current app is tested.
     packageDir: string,
 
+    // Ensures all installed dependencies are specified in `package.json` or `bower.json`.
+    // `false` by default.
+    onlySpecified: boolean,
+
     // If true, on error, instead of failing the task, `npm install` will be invoked for the user.
     // `false` by default.
     install: boolean,

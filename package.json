@@ -28,19 +28,20 @@
     "tasks"
   ],
   "dependencies": {
-    "check-dependencies": "^0.7.1",
+    "check-dependencies": "^0.8.1",
     "lodash.clonedeep": "^2.4.1"
   },
   "devDependencies": {
-    "fs-extra": "0.10.0",
+    "fs-extra": "0.13.0",
     "grunt-cli": "0.1.13",
-    "grunt-eslint": "0.6.0",
-    "grunt-jscs": "0.6.1",
-    "grunt-mocha-test": "0.11.0",
+    "grunt-eslint": "2.1.0",
+    "grunt-jscs": "0.8.1",
+    "grunt-mocha-test": "0.12.4",
     "jscs-trailing-comma": "0.3.0",
-    "load-grunt-tasks": "0.6.0",
-    "semver": "2.3.1",
-    "time-grunt": "0.4.0"
+    "load-grunt-tasks": "2.0.0",
+    "mocha": "2.1.0",
+    "semver": "4.2.0",
+    "time-grunt": "1.0.0"
   },
   "peerDependencies": {
     "grunt": "~0.4.1"
