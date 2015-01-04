@@ -68,11 +68,10 @@ The `checkDependencies` task accepts a couple of options:
     // Tells the task which sections of the package.json file should be checked.
     // Default is `['dependencies', 'devDependencies']`.
     scopeList: array,
-
-    // If true, logs non-error messages as well.
-    verbose: boolean,
 }
 ```
+
+If you run the task with the `--verbose` flag, it will log non-error messages as well.
 
 For the full list, see [the usage section](https://github.com/mzgol/check-dependencies#usage) of the README of the [check-dependencies](https://www.npmjs.org/package/check-dependencies) package.
 

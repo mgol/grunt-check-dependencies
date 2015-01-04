@@ -19,11 +19,7 @@ module.exports = function (grunt) {
             var options = cloneDeep(this.options()),
                 done = this.async();
 
-            if (options.verbose) {
-                options.log = grunt.log.writeln;
-            } else {
-                options.log = function () {};
-            }
+            options.log = grunt.verbose.writeln;
             options.error = grunt.log.error;
 
             // Our verbose mode represents check-dependencies verbose mode but even in non-verbose
