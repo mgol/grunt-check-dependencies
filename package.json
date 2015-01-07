@@ -19,11 +19,7 @@
     "url": "https://github.com/mzgol/grunt-check-dependencies.git"
   },
   "bugs": "https://github.com/mzgol/grunt-check-dependencies/issues",
-  "licenses": [
-    {
-      "type": "MIT"
-    }
-  ],
+  "license": "MIT",
   "files": [
     "tasks"
   ],
