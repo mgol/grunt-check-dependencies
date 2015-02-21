@@ -47,27 +47,26 @@ grunt.initConfig({
 
 #### Options
 
-The `checkDependencies` task accepts a couple of options:
+The `checkDependencies` task accepts the same options the `check-dependencies` library accepts in its config except `verbose`, `log` and `error`. [Click here to see the full list](https://github.com/mzgol/check-dependencies/tree/0.9.0#usage).
+
+Below is a description of a few most basic options
 
 ```js
 {
-    // 'npm' or 'bower', depending on what we want to test.
+    // `'npm'` or `'bower'`, depending on what we want to test.
+    // Default: `'npm'`.
     packageManager: string,
 
     // Path to a directory containing the package to test. By default the current app is tested.
     packageDir: string,
 
     // Ensures all installed dependencies are specified in `package.json` or `bower.json`.
-    // `false` by default.
+    // Default: `false`.
     onlySpecified: boolean,
 
     // If true, on error, instead of failing the task, `npm install` will be invoked for the user.
-    // `false` by default.
+    // Default: `false`.
     install: boolean,
-
-    // Tells the task which sections of the package.json file should be checked.
-    // Default is `['dependencies', 'devDependencies']`.
-    scopeList: array,
 }
 ```
 
