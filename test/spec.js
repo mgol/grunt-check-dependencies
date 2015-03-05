@@ -53,4 +53,27 @@ describe('Task: checkDependencies', function () {
                 });
         });
     });
+
+    it('should install missing packages and continue when `install` and `continue` are set to true', function (done) {
+        this.timeout(30000);
+
+        var versionRange = require('./not-ok-install/package.json').dependencies.minimatch,
+            version = JSON.parse(fs.readFileSync(__dirname +
+                '/not-ok-install/node_modules/minimatch/package.json')).version;
+
+        assert.equal(semver.satisfies(version, versionRange),
+            false, 'Expected version ' + version + ' not to match ' + versionRange);
+
+        fs.remove(__dirname + '/not-ok-install-copy', function (error) {
+            assert.equal(error, null);
+            fs.copy(__dirname + '/not-ok-install', __dirname + '/not-ok-install-copy',
+                function (error) {
+                    assert.equal(error, null);
+                    exec('grunt checkDependencies:notOkCopyInstallContinue', function (error) {
+                        assert.equal(error, null);
+                        done();
+                    });
+                });
+        });
+    });
 });
