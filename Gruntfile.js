@@ -53,6 +53,13 @@ module.exports = function (grunt) {
                     install: true,
                 },
             },
+            notOkCopyInstallContinue: {
+                options: {
+                    packageDir: './test/not-ok-install-copy/',
+                    install: true,
+                    continue: true,
+                },
+            },
             notOkCopy: {
                 options: {
                     packageDir: './test/not-ok-install-copy/',

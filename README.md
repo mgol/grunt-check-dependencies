@@ -67,6 +67,10 @@ Below is a description of a few most basic options
     // If true, on error, instead of failing the task, `npm install` will be invoked for the user.
     // Default: `false`.
     install: boolean,
+
+    // If true, instead of aborting the task after checking (and installing), the task will continue.
+    // Default: `false`.
+    continue: boolean,
 }
 ```
 

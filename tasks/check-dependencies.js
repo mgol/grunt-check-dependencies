@@ -17,7 +17,8 @@ module.exports = function (grunt) {
             'that are specified in package.json',
         function () {
             var options = cloneDeep(this.options()),
-                done = this.async();
+                done = this.async(),
+                needContinue = options.continue === true;
 
             options.log = grunt.verbose.writeln;
             options.error = grunt.log.error;
@@ -33,9 +34,11 @@ module.exports = function (grunt) {
                 // obsolete Grunt tasks loaded so it's better to fail this time and require
                 // a re-run.
                 if (output.status === 0 && !output.depsWereOk) {
-                    grunt.log.error('Dependencies have been updated. Please re-run your Grunt task.');
+                    if (!needContinue) {
+                        grunt.log.error('Dependencies have been updated. Please re-run your Grunt task.');
+                    }
                 }
-                done(output.status === 0 && output.depsWereOk);
+                done(output.status === 0 && (output.depsWereOk || needContinue));
             });
         }
     );
