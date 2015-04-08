@@ -102,6 +102,21 @@ If you want to automatically install missing packages, here's what you want:
 }
 ```
 
+If you want to automatically install missing packages without interrupting the task, you can use:
+```js
+{
+    checkDependencies: {
+        this: {
+            options: {
+                install: true,
+                continue: true,
+            },
+        },
+    },
+}
+```
+However, be careful with the `continue` option as the tasks loaded before will not be updated unless re-running the task. This will also be the case with plugins like `load-grunt-tasks`.
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
