@@ -47,7 +47,7 @@ grunt.initConfig({
 
 #### Options
 
-The `checkDependencies` task accepts the same options the `check-dependencies` library accepts in its config except `verbose`, `log` and `error`. [Click here to see the full list](https://github.com/mzgol/check-dependencies/tree/0.9.0#usage).
+The `checkDependencies` task accepts the same options the `check-dependencies` library accepts in its config except `verbose`, `log` and `error`. [Click here to see the full list](https://github.com/mzgol/check-dependencies/tree/0.9.3#usage).
 
 Below is a description of a few most basic options
 
