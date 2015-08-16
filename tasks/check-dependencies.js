@@ -13,9 +13,11 @@ var cloneDeep = require('lodash.clonedeep'),
 
 module.exports = function (grunt) {
     grunt.registerMultiTask('checkDependencies',
-            'Checks if currently installed npm dependencies are installed in the exact same versions ' +
-            'that are specified in package.json',
+            'Checks if currently installed npm dependencies are installed in the exact ' +
+            'same versions that are specified in package.json',
         function () {
+            /* eslint-disable no-invalid-this */
+
             var options = cloneDeep(this.options()),
                 done = this.async(),
                 needContinue = options.continue === true;
@@ -35,11 +37,14 @@ module.exports = function (grunt) {
                 // a re-run.
                 if (output.status === 0 && !output.depsWereOk) {
                     if (!needContinue) {
-                        grunt.log.error('Dependencies have been updated. Please re-run your Grunt task.');
+                        grunt.log.error(
+                            'Dependencies have been updated. Please re-run your Grunt task.');
                     }
                 }
                 done(output.status === 0 && (output.depsWereOk || needContinue));
             });
+
+            /* eslint-enable no-invalid-this */
         }
     );
 };

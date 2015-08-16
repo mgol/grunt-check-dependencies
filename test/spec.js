@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable no-invalid-this */
+
 var fs = require('fs-extra'),
     assert = require('assert'),
     semver = require('semver'),
@@ -40,11 +42,12 @@ describe('Task: checkDependencies', function () {
                     exec('grunt checkDependencies:notOkCopyInstall', function (error) {
                         assert.notEqual(error, null);
                         exec('grunt checkDependencies:notOkCopy', function (error) {
-                            // The second one would fail if there are mismatched packages since it's not
-                            // invoked with `install: true`.
+                            // The second one would fail if there are mismatched packages since
+                            // it's not invoked with `install: true`.
                             assert.equal(error, null);
                             version = JSON.parse(fs.readFileSync(__dirname +
-                                '/not-ok-install-copy/node_modules/minimatch/package.json')).version;
+                                '/not-ok-install-copy/node_modules/minimatch/' +
+                                'package.json')).version;
                             assert(semver.satisfies(version, versionRange),
                                 'Expected version ' + version + ' to match ' + versionRange);
                             done();
@@ -54,7 +57,8 @@ describe('Task: checkDependencies', function () {
         });
     });
 
-    it('should install missing packages and continue when `install` and `continue` are set to true', function (done) {
+    it('should install missing packages and continue when `install` and `continue` are set to true',
+            function (done) {
         this.timeout(30000);
 
         var versionRange = require('./not-ok-install/package.json').dependencies.minimatch,
