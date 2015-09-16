@@ -13,6 +13,7 @@
 /* eslint-disable no-var, object-shorthand, prefer-arrow-callback, prefer-const,
  prefer-spread, prefer-reflect, prefer-template */
 
+var fs = require('fs');
 var assert = require('assert');
 
 var newNode;
@@ -24,7 +25,7 @@ try {
 }
 
 var transformRelativePath = function transformRelativePath(filepath) {
-    return newNode ? filepath : './dist/' + filepath;
+    return newNode ? filepath : 'dist/' + filepath;
 };
 
 module.exports = function (grunt) {
@@ -171,7 +172,9 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     // Actually load this plugin's task(s).
-    grunt.loadTasks('tasks');
+    if (fs.existsSync(__dirname + '/dist')) {
+        grunt.loadTasks('tasks');
+    }
 
     grunt.registerTask('lint', [
         'eslint',
