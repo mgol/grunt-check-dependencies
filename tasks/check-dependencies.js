@@ -8,43 +8,17 @@
 
 'use strict';
 
-var cloneDeep = require('lodash.clonedeep'),
-    checkDependencies = require('check-dependencies');
+// Disable options that don't work in Node.js 0.10.
+// Gruntfile.js & tasks/*.js are the only non-transpiled files.
+/* eslint-disable no-var */
+
+var assert = require('assert');
 
 module.exports = function (grunt) {
-    grunt.registerMultiTask('checkDependencies',
-            'Checks if currently installed npm dependencies are installed in the exact ' +
-            'same versions that are specified in package.json',
-        function () {
-            /* eslint-disable no-invalid-this */
-
-            var options = cloneDeep(this.options()),
-                done = this.async(),
-                needContinue = options.continue === true;
-
-            options.log = grunt.verbose.writeln;
-            options.error = grunt.log.error;
-
-            // Our verbose mode represents check-dependencies verbose mode but even in non-verbose
-            // mode we want to have error messages logged so from check-dependencies perspective
-            // we're always verbose.
-            options.verbose = true;
-
-            checkDependencies(options, function (output) {
-                // The checkDependencies function succeeds if dependencies were mismatched
-                // but `npm install` ended fine; however, in case of mismatch we might have
-                // obsolete Grunt tasks loaded so it's better to fail this time and require
-                // a re-run.
-                if (output.status === 0 && !output.depsWereOk) {
-                    if (!needContinue) {
-                        grunt.log.error(
-                            'Dependencies have been updated. Please re-run your Grunt task.');
-                    }
-                }
-                done(output.status === 0 && (output.depsWereOk || needContinue));
-            });
-
-            /* eslint-enable no-invalid-this */
-        }
-    );
+    try {
+        assert.strictEqual(eval('(() => 2)()'), 2); // eslint-disable-line no-eval
+        return require('../src/check-dependencies')(grunt);
+    } catch (e) {
+        return require('../dist/src/check-dependencies')(grunt);
+    }
 };

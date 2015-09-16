@@ -1,16 +1,14 @@
 'use strict';
 
-/* eslint-disable no-invalid-this */
+const fs = require('fs-extra');
+const assert = require('assert');
+const semver = require('semver');
+const exec = require('child_process').exec;
 
-var fs = require('fs-extra'),
-    assert = require('assert'),
-    semver = require('semver'),
-    exec = require('child_process').exec;
-
-describe('Task: checkDependencies', function () {
+describe('Task: checkDependencies', () => {
     it('should not print anything for valid package setup', function (done) {
         this.timeout(10000);
-        exec('grunt checkDependencies:ok', function (error) {
+        exec('grunt checkDependencies:ok', error => {
             assert.equal(error, null);
             done();
         });
@@ -18,7 +16,7 @@ describe('Task: checkDependencies', function () {
 
     it('should error on invalid package setup', function (done) {
         this.timeout(10000);
-        exec('grunt checkDependencies:notOk', function (error) {
+        exec('grunt checkDependencies:notOk', error => {
             assert.notEqual(error, null);
             done();
         });
@@ -27,29 +25,29 @@ describe('Task: checkDependencies', function () {
     it('should install missing packages when `install` is set to true', function (done) {
         this.timeout(30000);
 
-        var versionRange = require('./not-ok-install/package.json').dependencies.minimatch,
-            version = JSON.parse(fs.readFileSync(__dirname +
-                '/not-ok-install/node_modules/minimatch/package.json')).version;
+        const versionRange = require('./not-ok-install/package.json').dependencies.minimatch;
+        const version = JSON.parse(fs.readFileSync(`${ __dirname
+            }/not-ok-install/node_modules/minimatch/package.json`)).version;
 
-        assert.equal(semver.satisfies(version, versionRange),
-            false, 'Expected version ' + version + ' not to match ' + versionRange);
+        assert.equal(semver.satisfies(version, versionRange), false,
+            `Expected version ${ version } not to match ${ versionRange }`);
 
-        fs.remove(__dirname + '/not-ok-install-copy', function (error) {
+        fs.remove(`${ __dirname }/not-ok-install-copy`, error => {
             assert.equal(error, null);
-            fs.copy(__dirname + '/not-ok-install', __dirname + '/not-ok-install-copy',
-                function (error) {
+            fs.copy(`${ __dirname }/not-ok-install`, `${ __dirname }/not-ok-install-copy`,
+                error => {
                     assert.equal(error, null);
-                    exec('grunt checkDependencies:notOkCopyInstall', function (error) {
+                    exec('grunt checkDependencies:notOkCopyInstall', error => {
                         assert.notEqual(error, null);
-                        exec('grunt checkDependencies:notOkCopy', function (error) {
+                        exec('grunt checkDependencies:notOkCopy', error => {
                             // The second one would fail if there are mismatched packages since
                             // it's not invoked with `install: true`.
                             assert.equal(error, null);
-                            version = JSON.parse(fs.readFileSync(__dirname +
-                                '/not-ok-install-copy/node_modules/minimatch/' +
-                                'package.json')).version;
-                            assert(semver.satisfies(version, versionRange),
-                                'Expected version ' + version + ' to match ' + versionRange);
+                            const newVersion = JSON.parse(fs.readFileSync(`${ __dirname
+                                }/not-ok-install-copy/node_modules/minimatch/package.json`))
+                                .version;
+                            assert(semver.satisfies(newVersion, versionRange),
+                                `Expected version ${ newVersion } to match ${ versionRange }`);
                             done();
                         });
                     });
@@ -58,26 +56,26 @@ describe('Task: checkDependencies', function () {
     });
 
     it('should install missing packages and continue when `install` and `continue` are set to true',
-            function (done) {
-        this.timeout(30000);
+        function (done) {
+            this.timeout(30000);
 
-        var versionRange = require('./not-ok-install/package.json').dependencies.minimatch,
-            version = JSON.parse(fs.readFileSync(__dirname +
-                '/not-ok-install/node_modules/minimatch/package.json')).version;
+            const versionRange = require('./not-ok-install/package.json').dependencies.minimatch;
+            const version = JSON.parse(fs.readFileSync(`${ __dirname
+                }/not-ok-install/node_modules/minimatch/package.json`)).version;
 
-        assert.equal(semver.satisfies(version, versionRange),
-            false, 'Expected version ' + version + ' not to match ' + versionRange);
+            assert.equal(semver.satisfies(version, versionRange), false,
+                `Expected version ${ version } not to match ${ versionRange }`);
 
-        fs.remove(__dirname + '/not-ok-install-copy', function (error) {
-            assert.equal(error, null);
-            fs.copy(__dirname + '/not-ok-install', __dirname + '/not-ok-install-copy',
-                function (error) {
-                    assert.equal(error, null);
-                    exec('grunt checkDependencies:notOkCopyInstallContinue', function (error) {
+            fs.remove(`${ __dirname }/not-ok-install-copy`, error => {
+                assert.equal(error, null);
+                fs.copy(`${ __dirname }/not-ok-install`, `${ __dirname }/not-ok-install-copy`,
+                    error => {
                         assert.equal(error, null);
-                        done();
+                        exec('grunt checkDependencies:notOkCopyInstallContinue', error => {
+                            assert.equal(error, null);
+                            done();
+                        });
                     });
-                });
+            });
         });
-    });
 });
