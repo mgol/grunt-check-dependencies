@@ -96,8 +96,6 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         src: [
-                            '*.js',
-                            'tasks/**/*.js',
                             'src/**/*.js',
                             'test/**/*.js',
                         ],
