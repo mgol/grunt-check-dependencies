@@ -118,9 +118,7 @@ If you want to automatically install missing packages without interrupting the t
 However, be careful with the `continue` option as the tasks loaded before will not be updated unless re-running the task. This will also be the case with plugins like `load-grunt-tasks`.
 
 ## Supported Node.js versions
-This project aims to support all Node.js LTS versions in the "active" phase (see [LTS README](https://github.com/nodejs/LTS/blob/master/README.md) for more details) as well as the latest stable Node.js. Today that means Node.js 0.12 & 4.x.
-
-Because of the popularity of this package and Node.js 0.10, this version is temporarily supported as well.
+This project aims to support all Node.js LTS versions in the "active" phase (see [LTS README](https://github.com/nodejs/LTS/blob/master/README.md) for more details) as well as the latest stable Node.js. Today that means Node.js 0.12, 4 & 5.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
