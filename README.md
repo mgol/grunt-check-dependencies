@@ -2,8 +2,8 @@
 
 > Checks if currently installed npm dependencies are installed in the exact same versions that are specified in package.json. Based on [check-dependencies](https://www.npmjs.org/package/check-dependencies).
 
-[![Build Status](https://travis-ci.org/mzgol/grunt-check-dependencies.svg?branch=master)](https://travis-ci.org/mzgol/grunt-check-dependencies)
-[![Build status](https://ci.appveyor.com/api/projects/status/058pwmb1qvxphjfa/branch/master?svg=true)](https://ci.appveyor.com/project/mzgol/grunt-check-dependencies/branch/master)
+[![Build Status](https://travis-ci.org/mgol/grunt-check-dependencies.svg?branch=master)](https://travis-ci.org/mgol/grunt-check-dependencies)
+[![Build status](https://ci.appveyor.com/api/projects/status/058pwmb1qvxphjfa/branch/master?svg=true)](https://ci.appveyor.com/project/mgol/grunt-check-dependencies/branch/master)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 ## Getting Started
@@ -47,7 +47,7 @@ grunt.initConfig({
 
 #### Options
 
-The `checkDependencies` task accepts the same options the `check-dependencies` library accepts in its config except `verbose`, `log` and `error`. [Click here to see the full list](https://github.com/mzgol/check-dependencies/tree/0.9.3#usage).
+The `checkDependencies` task accepts the same options the `check-dependencies` library accepts in its config except `verbose`, `log` and `error`. [Click here to see the full list](https://github.com/mgol/check-dependencies/tree/0.9.3#usage).
 
 Below is a description of a few most basic options
 
@@ -76,7 +76,7 @@ Below is a description of a few most basic options
 
 If you run the task with the `--verbose` flag, it will log non-error messages as well.
 
-For the full list, see [the usage section](https://github.com/mzgol/check-dependencies#usage) of the README of the [check-dependencies](https://www.npmjs.org/package/check-dependencies) package.
+For the full list, see [the usage section](https://github.com/mgol/check-dependencies#usage) of the README of the [check-dependencies](https://www.npmjs.org/package/check-dependencies) package.
 
 ### Usage Examples
 
