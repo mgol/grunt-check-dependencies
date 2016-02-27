@@ -92,7 +92,7 @@ describe('Task: checkDependencies', () => {
         });
 
     // Deprecated.
-    it('should install missing packages and continue when `install` and `continue`' +
+    it('(deprecated) should install missing packages and continue when `install` and `continue`' +
         ' are set to true',
         function (done) {
             this.timeout(30000);
