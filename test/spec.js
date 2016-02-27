@@ -22,7 +22,8 @@ describe('Task: checkDependencies', () => {
         });
     });
 
-    it('should error if `continue: true` is specified without `install: true`', function (done) {
+    it('should error if `continueAfterInstall: true` is specified without ' +
+        '`install: true`', function (done) {
         this.timeout(10000);
         exec('grunt checkDependencies:continueWithoutInstall', error => {
             assert.notEqual(error, null);
@@ -63,7 +64,8 @@ describe('Task: checkDependencies', () => {
         });
     });
 
-    it('should install missing packages and continue when `install` and `continue` are set to true',
+    it('should install missing packages and continue when `install` and `continueAfterInstall`' +
+        ' are set to true',
         function (done) {
             this.timeout(30000);
 
@@ -79,10 +81,40 @@ describe('Task: checkDependencies', () => {
                 fs.copy(`${ __dirname }/not-ok-install`, `${ __dirname }/not-ok-install-copy`,
                     error => {
                         assert.equal(error, null);
-                        exec('grunt checkDependencies:notOkCopyInstallContinue', error => {
-                            assert.equal(error, null);
-                            done();
-                        });
+                        exec('grunt checkDependencies:notOkCopyInstallContinueAfterInstall',
+                            error => {
+                                assert.equal(error, null);
+                                done();
+                            }
+                        );
+                    });
+            });
+        });
+
+    // Deprecated.
+    it('should install missing packages and continue when `install` and `continue`' +
+        ' are set to true',
+        function (done) {
+            this.timeout(30000);
+
+            const versionRange = require('./not-ok-install/package.json').dependencies.minimatch;
+            const version = JSON.parse(fs.readFileSync(`${ __dirname
+                }/not-ok-install/node_modules/minimatch/package.json`)).version;
+
+            assert.equal(semver.satisfies(version, versionRange), false,
+                `Expected version ${ version } not to match ${ versionRange }`);
+
+            fs.remove(`${ __dirname }/not-ok-install-copy`, error => {
+                assert.equal(error, null);
+                fs.copy(`${ __dirname }/not-ok-install`, `${ __dirname }/not-ok-install-copy`,
+                    error => {
+                        assert.equal(error, null);
+                        exec('grunt checkDependencies:notOkCopyInstallContinue',
+                            error => {
+                                assert.equal(error, null);
+                                done();
+                            }
+                        );
                     });
             });
         });

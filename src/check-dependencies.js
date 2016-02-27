@@ -18,12 +18,21 @@ module.exports = grunt => {
         function () {
             const options = cloneDeep(this.options());
             const done = this.async();
-            const needContinue = options.continue === true;
+
+            if ('continue' in options) {
+                options.continueAfterInstall = options.continue;
+                delete options.continue;
+
+                grunt.log.warn('The `continue` option is deprecated. Use `continueAfterInstall`.');
+            }
+
+            const needContinue = options.continueAfterInstall === true;
 
             if (needContinue && !options.install) {
-                grunt.fail.fatal(
-                    'The `continue` option requires seting the `install` option to `true`'
-                );
+                grunt.fail.fatal([
+                    'The `continueAfterInstall` option requires seting the `install` option',
+                    'to `true`.',
+                ].join(' '));
             }
 
             options.log = grunt.verbose.writeln;

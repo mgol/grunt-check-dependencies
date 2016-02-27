@@ -69,9 +69,9 @@ Below is a description of a few most basic options
     install: boolean,
 
     // If true, instead of aborting the task after checking (and installing), the task will
-    // continue. This option requires `install: true` to work.
+    // continueAfterInstall. This option requires `install: true` to work.
     // Default: `false`.
-    continue: boolean,
+    continueAfterInstall: boolean,
 }
 ```
 
@@ -110,13 +110,13 @@ If you want to automatically install missing packages without interrupting the t
         this: {
             options: {
                 install: true,
-                continue: true,
+                continueAfterInstall: true,
             },
         },
     },
 }
 ```
-However, be careful with the `continue` option as the tasks loaded before will not be updated unless re-running the task. This will also be the case with plugins like `load-grunt-tasks`.
+However, be careful with the `continueAfterInstall` option as the tasks loaded before will not be updated unless re-running the task. This will also be the case with plugins like `load-grunt-tasks`.
 
 ## Supported Node.js versions
 This project aims to support all Node.js LTS versions in the "active" phase (see [LTS README](https://github.com/nodejs/LTS/blob/master/README.md) for more details) as well as the latest stable Node.js. Today that means Node.js 0.12, 4 & 5.

@@ -96,7 +96,7 @@ module.exports = function (grunt) {
             continueWithoutInstall: {
                 options: {
                     packageDir: transformRelativePath('test/ok/'),
-                    continue: true,
+                    continueAfterInstall: true,
                 },
             },
             notOk: {
@@ -110,16 +110,25 @@ module.exports = function (grunt) {
                     install: true,
                 },
             },
-            notOkCopyInstallContinue: {
+            notOkCopyInstallContinueAfterInstall: {
                 options: {
                     packageDir: transformRelativePath('test/not-ok-install-copy/'),
                     install: true,
-                    continue: true,
+                    continueAfterInstall: true,
                 },
             },
             notOkCopy: {
                 options: {
                     packageDir: transformRelativePath('test/not-ok-install-copy/'),
+                },
+            },
+
+            // Deprecated.
+            notOkCopyInstallContinue: {
+                options: {
+                    packageDir: transformRelativePath('test/not-ok-install-copy/'),
+                    install: true,
+                    continue: true,
                 },
             },
         },
