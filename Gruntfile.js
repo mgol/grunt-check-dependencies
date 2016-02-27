@@ -93,6 +93,12 @@ module.exports = function (grunt) {
                     packageDir: transformRelativePath('test/ok/'),
                 },
             },
+            continueWithoutInstall: {
+                options: {
+                    packageDir: transformRelativePath('test/ok/'),
+                    continue: true,
+                },
+            },
             notOk: {
                 options: {
                     packageDir: transformRelativePath('test/not-ok/'),

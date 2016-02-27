@@ -22,6 +22,14 @@ describe('Task: checkDependencies', () => {
         });
     });
 
+    it('should error if `continue: true` is specified without `install: true`', function (done) {
+        this.timeout(10000);
+        exec('grunt checkDependencies:continueWithoutInstall', error => {
+            assert.notEqual(error, null);
+            done();
+        });
+    });
+
     it('should install missing packages when `install` is set to true', function (done) {
         this.timeout(30000);
 

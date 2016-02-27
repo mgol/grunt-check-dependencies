@@ -20,6 +20,12 @@ module.exports = grunt => {
             const done = this.async();
             const needContinue = options.continue === true;
 
+            if (needContinue && !options.install) {
+                grunt.fail.fatal(
+                    'The `continue` option requires seting the `install` option to `true`'
+                );
+            }
+
             options.log = grunt.verbose.writeln;
             options.error = grunt.log.error;
 

@@ -68,7 +68,8 @@ Below is a description of a few most basic options
     // Default: `false`.
     install: boolean,
 
-    // If true, instead of aborting the task after checking (and installing), the task will continue.
+    // If true, instead of aborting the task after checking (and installing), the task will
+    // continue. This option requires `install: true` to work.
     // Default: `false`.
     continue: boolean,
 }
