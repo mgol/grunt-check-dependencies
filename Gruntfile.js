@@ -148,7 +148,9 @@ module.exports = function (grunt) {
     // Load all grunt tasks matching the `grunt-*` pattern.
     require('load-grunt-tasks')(grunt);
 
-    // Actually load this plugin's task(s).
+    // Actually load this plugin's task(s). Do it only if dist is present to prevent errors
+    // in older Nodes. Mocha will re-run Grunt a couple of times when those files will already
+    // be present.
     if (fs.existsSync(__dirname + '/dist')) {
         grunt.loadTasks('tasks');
     }
