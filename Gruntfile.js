@@ -80,6 +80,7 @@ module.exports = function (grunt) {
             all: {
                 src: [
                     '*.js',
+                    'src',
                     'tasks',
                     'test',
                 ],
