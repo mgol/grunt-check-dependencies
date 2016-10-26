@@ -8,26 +8,6 @@
 
 'use strict';
 
-// Disable options that don't work in Node.js 0.12.
-// Gruntfile.js & tasks/*.js are the only non-transpiled files.
-/* eslint-disable no-var, object-shorthand, prefer-arrow-callback, prefer-const,
- prefer-spread, prefer-reflect, prefer-template */
-
-var fs = require('fs');
-var assert = require('assert');
-
-var newNode;
-try {
-    assert.strictEqual(eval('(r => [...r])([2])[0]'), 2); // eslint-disable-line no-eval
-    newNode = true;
-} catch (e) {
-    newNode = false;
-}
-
-var transformRelativePath = function transformRelativePath(filepath) {
-    return newNode ? filepath : 'dist/' + filepath;
-};
-
 module.exports = function (grunt) {
     require('time-grunt')(grunt);
 
@@ -35,43 +15,7 @@ module.exports = function (grunt) {
         clean: {
             test: {
                 src: [
-                    'dist',
                     'test/*-copy',
-                ],
-            },
-        },
-
-        copy: {
-            nonGenerated: {
-                files: [
-                    {
-                        expand: true,
-                        dot: true,
-                        src: [
-                            'test/**/*',
-                            '!test/**/*.js',
-                        ],
-                        dest: 'dist',
-                    },
-                ],
-            },
-        },
-
-        babel: {
-            options: {
-                sourceMap: true,
-                retainLines: true,
-            },
-            all: {
-                files: [
-                    {
-                        expand: true,
-                        src: [
-                            'src/**/*.js',
-                            'test/**/*.js',
-                        ],
-                        dest: 'dist',
-                    },
                 ],
             },
         },
@@ -91,43 +35,43 @@ module.exports = function (grunt) {
         checkDependencies: {
             ok: {
                 options: {
-                    packageDir: transformRelativePath('test/ok/'),
+                    packageDir: 'test/ok/',
                 },
             },
             continueWithoutInstall: {
                 options: {
-                    packageDir: transformRelativePath('test/ok/'),
+                    packageDir: 'test/ok/',
                     continueAfterInstall: true,
                 },
             },
             notOk: {
                 options: {
-                    packageDir: transformRelativePath('test/not-ok/'),
+                    packageDir: 'test/not-ok/',
                 },
             },
             notOkCopyInstall: {
                 options: {
-                    packageDir: transformRelativePath('test/not-ok-install-copy/'),
+                    packageDir: 'test/not-ok-install-copy/',
                     install: true,
                 },
             },
             notOkCopyInstallContinueAfterInstall: {
                 options: {
-                    packageDir: transformRelativePath('test/not-ok-install-copy/'),
+                    packageDir: 'test/not-ok-install-copy/',
                     install: true,
                     continueAfterInstall: true,
                 },
             },
             notOkCopy: {
                 options: {
-                    packageDir: transformRelativePath('test/not-ok-install-copy/'),
+                    packageDir: 'test/not-ok-install-copy/',
                 },
             },
 
             // Deprecated.
             notOkCopyInstallContinue: {
                 options: {
-                    packageDir: transformRelativePath('test/not-ok-install-copy/'),
+                    packageDir: 'test/not-ok-install-copy/',
                     install: true,
                     continue: true,
                 },
@@ -140,7 +84,7 @@ module.exports = function (grunt) {
                 options: {
                     reporter: 'spec',
                 },
-                src: [transformRelativePath('test/*.js')],
+                src: ['test/*.js'],
             },
         },
     });
@@ -148,22 +92,11 @@ module.exports = function (grunt) {
     // Load all grunt tasks matching the `grunt-*` pattern.
     require('load-grunt-tasks')(grunt);
 
-    // Actually load this plugin's task(s). Do it only if dist is present to prevent errors
-    // in older Nodes. Mocha will re-run Grunt a couple of times when those files will already
-    // be present.
-    if (fs.existsSync(__dirname + '/dist')) {
-        grunt.loadTasks('tasks');
-    }
+    // Load this plugin's task(s).
+    grunt.loadTasks('tasks');
 
     grunt.registerTask('lint', [
         'eslint',
-    ]);
-
-    // In modern Node.js we just use the non-transpiled source as it makes it easier to debug;
-    // in older version we transpile (but keep the lines).
-    grunt.registerTask('build', [
-        'copy:nonGenerated',
-        'babel',
     ]);
 
     grunt.registerTask('test', ['mochaTest']);
@@ -172,7 +105,6 @@ module.exports = function (grunt) {
     grunt.registerTask('default', [
         'clean',
         'lint',
-        'build',
         'test',
     ]);
 };
