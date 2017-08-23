@@ -2,7 +2,7 @@
  * grunt-check-dependencies
  * https://github.com/mgol/grunt-check-dependencies
  *
- * Author Michał Gołębiowski <m.goleb@gmail.com>
+ * Author Michał Gołębiowski-Owczarek <m.goleb@gmail.com>
  * Licensed under the MIT license.
  */
 
