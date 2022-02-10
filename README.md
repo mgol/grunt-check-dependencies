@@ -2,6 +2,8 @@
 
 > Checks if currently installed npm dependencies are installed in the exact same versions that are specified in package.json. Based on [check-dependencies](https://www.npmjs.org/package/check-dependencies).
 
+**NOTE: `grunt-check-dependencies` is no longer maintained. Consider switching to a pure-JS `check-dependencies` package.**
+
 [![Build Status](https://travis-ci.org/mgol/grunt-check-dependencies.svg?branch=master)](https://travis-ci.org/mgol/grunt-check-dependencies)
 [![Build status](https://ci.appveyor.com/api/projects/status/058pwmb1qvxphjfa/branch/master?svg=true)](https://ci.appveyor.com/project/mgol/grunt-check-dependencies/branch/master)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
